@@ -23,7 +23,7 @@ export const products: CameraProduct[] = [
     category: "Mirrorless",
     brand: "Sony",
     status: "In Stock",
-    image: "/images/products/sony-a7rv.jpg",
+    image: "/images/products/sony.jpeg",
   },
   {
     id: "canon-r5",
@@ -31,7 +31,7 @@ export const products: CameraProduct[] = [
     category: "Mirrorless",
     brand: "Canon",
     status: "In Stock",
-    image: "/images/products/canon-r5.jpg",
+    image: "/images/products/canon.jpeg",
   },
   {
     id: "nikon-z9",
@@ -39,7 +39,7 @@ export const products: CameraProduct[] = [
     category: "Mirrorless",
     brand: "Nikon",
     status: "On Request",
-    image: "/images/products/nikon-z9.jpg",
+    image: "/images/products/nikon.jpeg",
   },
   {
     id: "sony-24-70",
@@ -47,7 +47,7 @@ export const products: CameraProduct[] = [
     category: "Lens",
     brand: "Sony",
     status: "In Stock",
-    image: "/images/products/sony-24-70.jpg",
+    image: "/images/products/lens.jpeg",
   },
   {
     id: "dji-rs3-pro",
@@ -55,7 +55,7 @@ export const products: CameraProduct[] = [
     category: "Gimbal",
     brand: "DJI",
     status: "In Stock",
-    image: "/images/products/dji-rs3.jpg",
+    image: "/images/products/rs3.jpeg",
   },
   {
     id: "rode-wireless-go-ii",
@@ -63,7 +63,7 @@ export const products: CameraProduct[] = [
     category: "Audio",
     brand: "Rode",
     status: "In Stock",
-    image: "/images/products/rode.jpg",
+    image: "/images/products/rode-wireless.jpeg",
   },
   {
     id: "godox-ad600",
@@ -71,7 +71,7 @@ export const products: CameraProduct[] = [
     category: "Lighting",
     brand: "Godox",
     status: "In Stock",
-    image: "/images/products/godox.jpg",
+    image: "/images/products/godox.jpeg",
   },
 ];
 

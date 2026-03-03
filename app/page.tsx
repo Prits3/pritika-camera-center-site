@@ -1,17 +1,7 @@
 import Image from "next/image";
 import { products, services } from "@/data/products";
 
-const heroFrames = [
-  "/images/hero/frame-009.jpg",
-  "/images/hero/frame-010.jpg",
-  "/images/hero/frame-011.jpg",
-  "/images/hero/frame-012.jpg",
-  "/images/hero/frame-013.jpg",
-  "/images/hero/frame-014.jpg",
-  "/images/hero/frame-015.jpg",
-  "/images/hero/frame-016.jpg",
-  "/images/hero/frame-017.jpg",
-];
+const liveProductFrames = products.map((product) => product.image);
 
 const contact = {
   email: "pritikaacameracenter@gmail.com",
@@ -82,8 +72,8 @@ export default function Home() {
 
             <div className="relative animate-float">
               <Image
-                src={products[0].image}
-                alt={products[0].name}
+                src={products[0]?.image ?? "/images/hero/frame-009.jpg"}
+                alt={products[0]?.name ?? "Featured product"}
                 width={900}
                 height={620}
                 className="w-full rounded-3xl border border-white/10 object-cover shadow-2xl shadow-orange-500/20"
@@ -97,11 +87,11 @@ export default function Home() {
 
         <section className="border-b border-white/10 bg-black/30 py-4">
           <div className="hero-rail-track">
-            {[...heroFrames, ...heroFrames].map((frame, index) => (
+            {[...liveProductFrames, ...liveProductFrames].map((frame, index) => (
               <div key={`${frame}-${index}`} className="hero-rail-item">
                 <Image
                   src={frame}
-                  alt="Store showcase"
+                  alt="Live product"
                   width={240}
                   height={140}
                   className="h-20 w-36 rounded-lg border border-white/10 object-cover md:h-24 md:w-44"
