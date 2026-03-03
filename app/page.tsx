@@ -31,14 +31,16 @@ export default function Home() {
       <main>
         <section className="relative h-[70vh] min-h-[430px] max-h-[860px] overflow-hidden">
           <video
-            src="/video/hero.mov"
             autoPlay
             loop
             muted
             playsInline
             preload="metadata"
+            poster="/images/hero/frame-009.jpg"
             className="h-full w-full object-cover"
           >
+            <source src="/video/hero.mp4" type="video/mp4" />
+            <source src="/video/hero.mov" type="video/quicktime" />
             Your browser does not support the video tag.
           </video>
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/15 via-black/25 to-slate-950/90" />
