@@ -26,32 +26,33 @@ const contact = {
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100">
-      <header className="sticky top-0 z-20 border-b border-white/10 bg-zinc-950/90 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <a href="#" className="text-sm font-semibold tracking-[0.16em]">
-            PRITIKA CAMERA CENTER
-          </a>
-          <nav className="hidden gap-6 text-sm text-zinc-300 md:flex">
-            <a href="#products" className="hover:text-white">
-              Products
-            </a>
-            <a href="#services" className="hover:text-white">
-              Services
-            </a>
-            <a href="#contact" className="hover:text-white">
-              Contact
-            </a>
-          </nav>
-        </div>
-      </header>
+    <div className="min-h-screen bg-slate-950 text-zinc-100">
 
       <main>
-        <section className="relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(234,88,12,0.35),transparent_40%),radial-gradient(circle_at_80%_0%,rgba(59,130,246,0.25),transparent_40%)]" />
-          <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-6 py-20 md:grid-cols-2 md:py-24">
+        <section className="relative h-[70vh] min-h-[430px] max-h-[860px] overflow-hidden">
+          <video
+            src="/video/hero.mov"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            className="h-full w-full object-cover"
+          >
+            Your browser does not support the video tag.
+          </video>
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/15 via-black/25 to-slate-950/90" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-7 flex justify-center">
+            <div className="h-10 w-6 rounded-full border border-white/40 p-1">
+              <div className="scroll-dot h-2 w-2 rounded-full bg-white" />
+            </div>
+          </div>
+        </section>
+
+        <section className="relative overflow-hidden border-y border-white/10 bg-[radial-gradient(circle_at_20%_20%,rgba(249,115,22,0.28),transparent_45%),radial-gradient(circle_at_85%_15%,rgba(56,189,248,0.2),transparent_45%),linear-gradient(120deg,#1f2937_0%,#111827_45%,#0b1220_100%)]">
+          <div className="mx-auto grid max-w-6xl items-center gap-10 px-6 py-16 md:grid-cols-2 md:py-20">
             <div className="animate-enter-up">
-              <p className="mb-6 text-xs tracking-[0.3em] text-zinc-300">
+              <p className="mb-6 text-xs tracking-[0.3em] text-zinc-300/90">
                 KATHMANDU, NEPAL
               </p>
               <h1 className="max-w-4xl text-4xl font-bold leading-tight md:text-6xl">
@@ -83,7 +84,6 @@ export default function Home() {
                 alt={products[0].name}
                 width={900}
                 height={620}
-                priority
                 className="w-full rounded-3xl border border-white/10 object-cover shadow-2xl shadow-orange-500/20"
               />
               <div className="animate-enter-up-delay absolute -bottom-4 left-4 rounded-xl border border-white/15 bg-zinc-950/80 px-4 py-3 text-xs font-semibold tracking-[0.2em] text-orange-300 backdrop-blur">
@@ -91,21 +91,21 @@ export default function Home() {
               </div>
             </div>
           </div>
+        </section>
 
-          <div className="border-y border-white/10 bg-black/30 py-4">
-            <div className="hero-rail-track">
-              {[...heroFrames, ...heroFrames].map((frame, index) => (
-                <div key={`${frame}-${index}`} className="hero-rail-item">
-                  <Image
-                    src={frame}
-                    alt="Store showcase"
-                    width={240}
-                    height={140}
-                    className="h-20 w-36 rounded-lg border border-white/10 object-cover md:h-24 md:w-44"
-                  />
-                </div>
-              ))}
-            </div>
+        <section className="border-b border-white/10 bg-black/30 py-4">
+          <div className="hero-rail-track">
+            {[...heroFrames, ...heroFrames].map((frame, index) => (
+              <div key={`${frame}-${index}`} className="hero-rail-item">
+                <Image
+                  src={frame}
+                  alt="Store showcase"
+                  width={240}
+                  height={140}
+                  className="h-20 w-36 rounded-lg border border-white/10 object-cover md:h-24 md:w-44"
+                />
+              </div>
+            ))}
           </div>
         </section>
 

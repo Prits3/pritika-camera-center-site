@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #09090b;
-  --foreground: #f4f4f5;
+  --background: #020617;
+  --foreground: #f8fafc;
 }
 
 @theme inline {
@@ -62,6 +62,21 @@ body {
   }
 }
 
+@keyframes dot-drop {
+  0% {
+    transform: translateY(0);
+    opacity: 0.95;
+  }
+  70% {
+    transform: translateY(16px);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 0.95;
+  }
+}
+
 .animate-enter-up {
   animation: enter-up 700ms ease-out both;
 }
@@ -83,4 +98,8 @@ body {
 
 .hero-rail-item {
   flex: 0 0 auto;
+}
+
+.scroll-dot {
+  animation: dot-drop 1.4s ease-in-out infinite;
 }
