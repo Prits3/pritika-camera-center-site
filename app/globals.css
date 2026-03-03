@@ -29,3 +29,58 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
 }
+
+@keyframes enter-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes rail-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-enter-up {
+  animation: enter-up 700ms ease-out both;
+}
+
+.animate-enter-up-delay {
+  animation: enter-up 900ms ease-out both;
+}
+
+.animate-float {
+  animation: float 5.2s ease-in-out infinite;
+}
+
+.hero-rail-track {
+  display: flex;
+  width: max-content;
+  gap: 0.75rem;
+  animation: rail-scroll 26s linear infinite;
+}
+
+.hero-rail-item {
+  flex: 0 0 auto;
+}
