@@ -115,8 +115,12 @@ export default function Home() {
           <div className="mb-10">
             <p className="text-xs tracking-[0.3em] text-zinc-400">PRODUCTS</p>
             <h2 className="mt-2 text-3xl font-semibold md:text-4xl">
-              Featured gear from your `data/products.ts`
+              Featured Camera Gear
             </h2>
+            <p className="mt-3 max-w-2xl text-zinc-300">
+              Handpicked cameras, lenses, and creator essentials available at
+              Pritika Camera Center.
+            </p>
           </div>
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {products.map((item) => (

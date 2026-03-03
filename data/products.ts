@@ -73,14 +73,6 @@ export const products: CameraProduct[] = [
     status: "In Stock",
     image: "/images/products/godox.jpg",
   },
-  {
-    id: "manfrotto-befree",
-    name: "Manfrotto Befree Advanced",
-    category: "Tripod",
-    brand: "Manfrotto",
-    status: "In Stock",
-    image: "/images/products/tripod.jpg",
-  },
 ];
 
 export const services = [
