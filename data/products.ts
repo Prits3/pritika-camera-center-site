@@ -83,12 +83,6 @@ export const services = [
     icon: "Wrench",
   },
   {
-    title: "Rental",
-    description:
-      "High-end cinema line cameras, lenses, and lighting equipment available for short and long term rent.",
-    icon: "Camera",
-  },
-  {
     title: "Accessories & Spare Parts",
     description:
       "Large inventory of batteries, chargers, memory cards, and replacements.",

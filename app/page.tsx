@@ -1,7 +1,26 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import { products, services } from "@/data/products";
 
 const liveProductFrames = products.map((product) => product.image);
+const serviceTitles = services.map((service) => service.title);
+
+const visitSlots = [
+  "Sunday-Friday | 10:00 - 11:00",
+  "Sunday-Friday | 11:00 - 12:00",
+  "Sunday-Friday | 12:00 - 13:00",
+  "Sunday-Friday | 13:00 - 14:00",
+  "Sunday-Friday | 14:00 - 15:00",
+  "Sunday-Friday | 15:00 - 16:00",
+  "Sunday-Friday | 16:00 - 17:00",
+  "Sunday-Friday | 17:00 - 18:00",
+  "Sunday-Friday | 18:00 - 19:00",
+  "Saturday | 10:00 - 11:00",
+  "Saturday | 11:00 - 12:00",
+  "Saturday | 12:00 - 13:00",
+];
 
 const contact = {
   email: "pritikaacameracenter@gmail.com",
@@ -15,6 +34,16 @@ const contact = {
 };
 
 export default function Home() {
+  const [selectedService, setSelectedService] = useState(serviceTitles[0] ?? "");
+
+  const selectService = (serviceTitle: string) => {
+    setSelectedService(serviceTitle);
+    document.getElementById("service-booking")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
   return (
     <div className="min-h-screen bg-slate-950 text-zinc-100">
 
@@ -142,18 +171,168 @@ export default function Home() {
         >
           <div className="mx-auto max-w-6xl">
             <p className="text-xs tracking-[0.3em] text-zinc-400">SERVICES</p>
-            <h2 className="mt-2 text-3xl font-semibold md:text-4xl">More than a shop</h2>
+            <h2 className="mt-2 text-3xl font-semibold md:text-4xl">
+              Click a service to book
+            </h2>
+            <p className="mt-3 max-w-2xl text-zinc-300">
+              Choose your service and we will reserve a visit slot at the store.
+            </p>
             <div className="mt-8 grid gap-4 md:grid-cols-2">
               {services.map((service) => (
-                <article
+                <button
                   key={service.title}
-                  className="rounded-xl border border-white/10 bg-white/[0.03] p-5"
+                  type="button"
+                  onClick={() => selectService(service.title)}
+                  className={`rounded-xl border p-5 text-left transition ${
+                    selectedService === service.title
+                      ? "border-orange-400/80 bg-orange-500/10"
+                      : "border-white/10 bg-white/[0.03] hover:border-white/30"
+                  }`}
                 >
                   <h3 className="font-semibold">{service.title}</h3>
                   <p className="mt-2 text-sm text-zinc-300">{service.description}</p>
-                </article>
+                  <p className="mt-4 text-xs font-semibold tracking-[0.18em] text-orange-300">
+                    BOOK THIS SERVICE
+                  </p>
+                </button>
               ))}
             </div>
+          </div>
+        </section>
+
+        <section id="service-booking" className="mx-auto max-w-6xl px-6 py-16 md:py-20">
+          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 md:p-8">
+            <p className="text-xs tracking-[0.3em] text-zinc-400">SERVICE BOOKING</p>
+            <h2 className="mt-2 text-3xl font-semibold md:text-4xl">
+              Book your store visit
+            </h2>
+            <p className="mt-3 text-sm text-zinc-300">
+              Store hours: Sunday-Friday 10:00-19:00, Saturday 10:00-13:00.
+            </p>
+            <form
+              action={`https://formsubmit.co/${contact.email}`}
+              method="POST"
+              className="mt-8 grid gap-4 md:grid-cols-2"
+            >
+              <input type="hidden" name="_subject" value="New service booking request" />
+              <input type="hidden" name="_template" value="table" />
+              <input type="hidden" name="_captcha" value="true" />
+              <input type="text" name="_honey" className="hidden" tabIndex={-1} autoComplete="off" />
+
+              <div className="md:col-span-2">
+                <label htmlFor="service" className="mb-2 block text-sm text-zinc-300">
+                  Service
+                </label>
+                <select
+                  id="service"
+                  name="service"
+                  value={selectedService}
+                  onChange={(event) => setSelectedService(event.target.value)}
+                  required
+                  className="w-full rounded-lg border border-white/15 bg-zinc-950 px-4 py-3 text-sm outline-none ring-orange-500 focus:ring-2"
+                >
+                  {serviceTitles.map((title) => (
+                    <option key={title} value={title}>
+                      {title}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label htmlFor="booking-name" className="mb-2 block text-sm text-zinc-300">
+                  Full name
+                </label>
+                <input
+                  id="booking-name"
+                  required
+                  name="name"
+                  type="text"
+                  minLength={2}
+                  maxLength={80}
+                  autoComplete="name"
+                  className="w-full rounded-lg border border-white/15 bg-zinc-950 px-4 py-3 text-sm outline-none ring-orange-500 focus:ring-2"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="booking-phone" className="mb-2 block text-sm text-zinc-300">
+                  Phone number
+                </label>
+                <input
+                  id="booking-phone"
+                  required
+                  name="phone"
+                  type="tel"
+                  inputMode="tel"
+                  minLength={7}
+                  maxLength={20}
+                  pattern="[0-9+\\s()-]{7,20}"
+                  autoComplete="tel"
+                  className="w-full rounded-lg border border-white/15 bg-zinc-950 px-4 py-3 text-sm outline-none ring-orange-500 focus:ring-2"
+                />
+              </div>
+
+              <div className="md:col-span-2">
+                <label htmlFor="booking-address" className="mb-2 block text-sm text-zinc-300">
+                  Address
+                </label>
+                <input
+                  id="booking-address"
+                  required
+                  name="address"
+                  type="text"
+                  minLength={5}
+                  maxLength={160}
+                  autoComplete="street-address"
+                  className="w-full rounded-lg border border-white/15 bg-zinc-950 px-4 py-3 text-sm outline-none ring-orange-500 focus:ring-2"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="visit-date" className="mb-2 block text-sm text-zinc-300">
+                  Preferred date
+                </label>
+                <input
+                  id="visit-date"
+                  required
+                  name="preferred_date"
+                  type="date"
+                  className="w-full rounded-lg border border-white/15 bg-zinc-950 px-4 py-3 text-sm outline-none ring-orange-500 focus:ring-2"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="visit-slot" className="mb-2 block text-sm text-zinc-300">
+                  Preferred time slot
+                </label>
+                <select
+                  id="visit-slot"
+                  name="preferred_time_slot"
+                  required
+                  defaultValue=""
+                  className="w-full rounded-lg border border-white/15 bg-zinc-950 px-4 py-3 text-sm outline-none ring-orange-500 focus:ring-2"
+                >
+                  <option value="" disabled>
+                    Select a time slot
+                  </option>
+                  {visitSlots.map((slot) => (
+                    <option key={slot} value={slot}>
+                      {slot}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="md:col-span-2">
+                <button
+                  type="submit"
+                  className="w-full rounded-full bg-orange-500 px-6 py-3 text-center font-semibold text-zinc-950 transition hover:bg-orange-400"
+                >
+                  Book Service Visit
+                </button>
+              </div>
+            </form>
           </div>
         </section>
 
@@ -281,9 +460,10 @@ export default function Home() {
       </main>
 
       <footer className="border-t border-white/10 px-6 py-8">
-        <div className="mx-auto flex max-w-6xl flex-col gap-3 text-sm text-zinc-400 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mx-auto flex max-w-6xl flex-col gap-3 text-sm text-zinc-400">
           <p>Copyright {new Date().getFullYear()} Pritika Camera Center</p>
           <p>Photo and video equipment for creators in Nepal</p>
+          <p>Store Hours: Sunday-Friday 10:00-19:00 | Saturday 10:00-13:00</p>
         </div>
       </footer>
     </div>
