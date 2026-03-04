@@ -9,7 +9,7 @@ export const copy = {
     heroTitle: "Pritika Camera Center",
     heroSubtitle: "Real camera gear. Trusted local support.",
     heroSince: "Serving photographers since 2004",
-    ctaLearn: "Learn more",
+    ctaLearn: "Contact us",
     ctaBook: "Book a visit",
     productsLabel: "PRODUCTS",
     productsHeading: "Featured Camera Gear",

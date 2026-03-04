@@ -416,9 +416,9 @@ export default function Home() {
               {t.contactHeading}
             </h2>
             <div className="mt-6 space-y-3 text-zinc-100">
-              <p className="text-lg font-semibold md:text-xl">Phone: {contact.phoneDisplay}</p>
-              <p className="text-lg font-semibold md:text-xl">Email: {contact.email}</p>
-              <p className="text-lg font-semibold md:text-xl">
+              <p className="text-base font-medium md:text-lg">Phone📞: {contact.phoneDisplay}</p>
+              <p className="text-base font-medium md:text-lg">Email📧: {contact.email}</p>
+              <p className="text-base font-medium md:text-lg">
                 {t.contactLocation} (3rd floor)
               </p>
             </div>
