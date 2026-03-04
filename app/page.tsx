@@ -1,32 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { products, services } from "@/data/products";
-
-const liveProductFrames = products.map((product) => product.image);
+import { copy, productTranslations, serviceTranslations, visitSlots, type Language } from "@/data/translations";
 const aboutFrames = [
   "/images/about/kpa.png",
   "/images/about/pcc.png",
   "/images/about/award.png",
 ];
 const serviceTitles = services.map((service) => service.title);
-
-const visitSlots = [
-  "Sunday-Friday | 10:00 - 11:00",
-  "Sunday-Friday | 11:00 - 12:00",
-  "Sunday-Friday | 12:00 - 13:00",
-  "Sunday-Friday | 13:00 - 14:00",
-  "Sunday-Friday | 14:00 - 15:00",
-  "Sunday-Friday | 15:00 - 16:00",
-  "Sunday-Friday | 16:00 - 17:00",
-  "Sunday-Friday | 17:00 - 18:00",
-  "Sunday-Friday | 18:00 - 19:00",
-  "Saturday | 10:00 - 11:00",
-  "Saturday | 11:00 - 12:00",
-  "Saturday | 12:00 - 13:00",
-];
-
 const contact = {
   email: "pritikaacameracenter@gmail.com",
   phoneDisplay: "+977 9841224127",
@@ -39,7 +22,19 @@ const contact = {
 };
 
 export default function Home() {
+  const [language, setLanguage] = useState<Language>("en");
+  const [isScrolled, setIsScrolled] = useState(false);
   const [selectedService, setSelectedService] = useState(serviceTitles[0] ?? "");
+  const t = copy[language];
+  const productLocale = productTranslations[language];
+  const serviceLocale = serviceTranslations[language];
+
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const selectService = (serviceTitle: string) => {
     setSelectedService(serviceTitle);
@@ -51,125 +46,133 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-zinc-100">
-
-      <main>
-        <section className="relative h-[70vh] min-h-[430px] max-h-[860px] overflow-hidden">
-          <nav className="absolute left-1/2 top-4 z-20 w-[92%] max-w-sm -translate-x-1/2 rounded-2xl border border-white/20 bg-black/35 p-2 backdrop-blur">
-            <label htmlFor="section-dropdown" className="sr-only">
-              Jump to section
+      <header
+        className={`fixed inset-x-0 top-0 z-30 border-b border-zinc-200/70 bg-[#f5f5f7]/95 backdrop-blur transition-all duration-300 ${
+          isScrolled ? "py-2" : "py-4"
+        }`}
+      >
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-5">
+          <p className="text-sm font-semibold tracking-[0.16em] text-zinc-900">
+            PRITIKA CAMERA CENTER
+          </p>
+          <nav className="hidden gap-7 text-sm text-zinc-700 md:flex">
+            <a href="#products" className="hover:text-zinc-950">
+              {t.navProducts}
+            </a>
+            <a href="#services" className="hover:text-zinc-950">
+              {t.navServices}
+            </a>
+            <a href="#about" className="hover:text-zinc-950">
+              {t.navAbout}
+            </a>
+          </nav>
+          <div className="flex items-center gap-3 text-zinc-800">
+            <label htmlFor="language" className="sr-only">
+              Language
             </label>
             <select
-              id="section-dropdown"
-              defaultValue=""
-              onChange={(event) => {
-                const sectionId = event.target.value;
-                if (!sectionId) return;
-                document.getElementById(sectionId)?.scrollIntoView({
+              id="language"
+              value={language}
+              onChange={(event) => setLanguage(event.target.value as Language)}
+              className="rounded-full border border-zinc-300 bg-white px-3 py-1 text-xs font-semibold outline-none ring-[#0071e3] focus:ring-2"
+            >
+              <option value="en">EN</option>
+              <option value="ne">NE</option>
+              <option value="hi">HI</option>
+            </select>
+            <button
+              type="button"
+              onClick={() =>
+                document.getElementById("products")?.scrollIntoView({
                   behavior: "smooth",
                   block: "start",
-                });
-              }}
-              className="w-full rounded-xl border border-white/15 bg-zinc-900/80 px-4 py-3 text-sm font-semibold text-zinc-100 outline-none ring-orange-500 focus:ring-2"
+                })
+              }
+              aria-label="Go to products"
             >
-              <option value="" disabled>
-                Navigate
-              </option>
-              <option value="products">Products</option>
-              <option value="services">Services</option>
-              <option value="about">About Us</option>
-            </select>
-          </nav>
-
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="metadata"
-            poster="/images/hero/frame-009.jpg"
-            className="h-full w-full object-cover"
-          >
-            <source src="/video/hero.mp4" type="video/mp4" />
-            <source src="/video/hero.mov" type="video/quicktime" />
-            Your browser does not support the video tag.
-          </video>
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/15 via-black/25 to-slate-950/90" />
-          <div className="pointer-events-none absolute inset-x-0 bottom-7 flex justify-center">
-            <div className="h-10 w-6 rounded-full border border-white/40 p-1">
-              <div className="scroll-dot h-2 w-2 rounded-full bg-white" />
-            </div>
+              <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
+                <circle cx="11" cy="11" r="7" />
+                <path d="m20 20-4-4" />
+              </svg>
+            </button>
+            <button
+              type="button"
+              onClick={() =>
+                document.getElementById("service-booking")?.scrollIntoView({
+                  behavior: "smooth",
+                  block: "start",
+                })
+              }
+              aria-label="Go to booking"
+            >
+              <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
+                <rect x="5" y="5" width="14" height="14" rx="2.8" />
+              </svg>
+            </button>
+            <button
+              type="button"
+              onClick={() =>
+                document.getElementById("about")?.scrollIntoView({
+                  behavior: "smooth",
+                  block: "start",
+                })
+              }
+              aria-label="Go to about section"
+            >
+              <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
+                <path d="M4 7h16M4 12h16M4 17h16" />
+              </svg>
+            </button>
           </div>
-        </section>
+        </div>
+      </header>
 
-        <section className="relative overflow-hidden border-y border-white/10 bg-[radial-gradient(circle_at_20%_20%,rgba(249,115,22,0.28),transparent_45%),radial-gradient(circle_at_85%_15%,rgba(56,189,248,0.2),transparent_45%),linear-gradient(120deg,#1f2937_0%,#111827_45%,#0b1220_100%)]">
-          <div className="mx-auto grid max-w-6xl items-center gap-10 px-6 py-16 md:grid-cols-2 md:py-20">
-            <div className="animate-enter-up">
-              <p className="mb-6 text-xs tracking-[0.3em] text-zinc-300/90">
-                KATHMANDU, NEPAL
-              </p>
-              <h1 className="max-w-4xl text-4xl font-bold leading-tight md:text-6xl">
-                Real camera gear. Real local support.
-              </h1>
-              <p className="mt-6 max-w-2xl text-base text-zinc-300 md:text-xl">
-                Browse popular products, compare options, and get guidance from
-                Pritika Camera Center.
-              </p>
-              <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-                <a
-                  href="#products"
-                  className="rounded-full bg-orange-500 px-8 py-4 text-center text-base font-semibold text-zinc-950 transition hover:bg-orange-400"
-                >
-                  Explore Products
-                </a>
-                <a
-                  href="#contact"
-                  className="rounded-full border border-white/30 px-8 py-4 text-center text-base font-semibold transition hover:bg-white/10"
-                >
-                  Get In Touch
-                </a>
-              </div>
+      <main>
+        <section className="border-b border-zinc-200 bg-[#f5f5f7] text-zinc-900">
+          <div className="mx-auto max-w-6xl px-6 pb-16 pt-28 text-center md:pt-32">
+            <p className="text-sm tracking-[0.2em] text-zinc-500">{t.heroLocation}</p>
+            <h1 className="mt-4 text-5xl font-semibold tracking-tight md:text-7xl">
+              {t.heroTitle}
+            </h1>
+            <p className="mx-auto mt-4 max-w-3xl text-xl text-zinc-700 md:text-3xl">
+              {t.heroSubtitle}
+            </p>
+            <p className="mt-4 text-lg text-zinc-500">{t.heroSince}</p>
+            <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+              <a
+                href="#products"
+                className="rounded-full bg-[#0071e3] px-8 py-3 text-base font-medium text-white transition hover:bg-[#0066cc]"
+              >
+                {t.ctaLearn}
+              </a>
+              <a
+                href="#service-booking"
+                className="rounded-full border border-[#0071e3] px-8 py-3 text-base font-medium text-[#0071e3] transition hover:bg-[#0071e3]/10"
+              >
+                {t.ctaBook}
+              </a>
             </div>
-
-            <div className="relative animate-float">
+            <div className="mx-auto mt-12 max-w-4xl">
               <Image
                 src={products[0]?.image ?? "/images/hero/frame-009.jpg"}
-                alt={products[0]?.name ?? "Featured product"}
+                alt={(products[0] && productLocale[products[0].id]?.name) ?? "Featured product"}
                 width={900}
                 height={620}
-                className="w-full rounded-3xl border border-white/10 object-cover shadow-2xl shadow-orange-500/20"
+                priority
+                className="w-full rounded-3xl border border-zinc-200 object-cover shadow-xl shadow-zinc-400/20"
               />
-              <div className="animate-enter-up-delay absolute -bottom-4 left-4 rounded-xl border border-white/15 bg-zinc-950/80 px-4 py-3 text-xs font-semibold tracking-[0.2em] text-orange-300 backdrop-blur">
-                LIVE INVENTORY
-              </div>
             </div>
-          </div>
-        </section>
-
-        <section className="border-b border-white/10 bg-black/30 py-4">
-          <div className="hero-rail-track">
-            {[...liveProductFrames, ...liveProductFrames].map((frame, index) => (
-              <div key={`${frame}-${index}`} className="hero-rail-item">
-                <Image
-                  src={frame}
-                  alt="Live product"
-                  width={240}
-                  height={140}
-                  className="h-20 w-36 rounded-lg border border-white/10 object-cover md:h-24 md:w-44"
-                />
-              </div>
-            ))}
           </div>
         </section>
 
         <section id="products" className="mx-auto max-w-6xl px-6 py-16 md:py-20">
           <div className="mb-10">
-            <p className="text-xs tracking-[0.3em] text-zinc-400">PRODUCTS</p>
+            <p className="text-xs tracking-[0.3em] text-zinc-400">{t.productsLabel}</p>
             <h2 className="mt-2 text-3xl font-semibold md:text-4xl">
-              Featured Camera Gear
+              {t.productsHeading}
             </h2>
             <p className="mt-3 max-w-2xl text-zinc-300">
-              Handpicked cameras, lenses, and creator essentials available at
-              Pritika Camera Center.
+              {t.productsDesc}
             </p>
           </div>
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -180,16 +183,20 @@ export default function Home() {
               >
                 <Image
                   src={item.image}
-                  alt={item.name}
+                  alt={productLocale[item.id]?.name ?? item.name}
                   width={800}
                   height={520}
                   className="mb-4 h-44 w-full rounded-xl border border-white/10 object-cover"
                 />
-                <p className="text-xs tracking-[0.2em] text-zinc-400">{item.category}</p>
-                <h3 className="mt-2 text-base font-semibold">{item.name}</h3>
+                <p className="text-xs tracking-[0.2em] text-zinc-400">
+                  {productLocale[item.id]?.category ?? item.category}
+                </p>
+                <h3 className="mt-2 text-base font-semibold">
+                  {productLocale[item.id]?.name ?? item.name}
+                </h3>
                 <p className="mt-1 text-sm text-zinc-300">{item.brand}</p>
                 <p className="mt-3 inline-block rounded-full border border-emerald-400/30 bg-emerald-500/10 px-3 py-1 text-xs text-emerald-300">
-                  {item.status}
+                  {productLocale[item.id]?.status ?? item.status}
                 </p>
               </article>
             ))}
@@ -198,37 +205,15 @@ export default function Home() {
 
         <section id="about" className="border-y border-white/10 bg-zinc-900/50 py-16 md:py-20">
           <div className="mx-auto max-w-6xl px-6">
-            <p className="text-xs tracking-[0.3em] text-zinc-400">ABOUT US</p>
+            <p className="text-xs tracking-[0.3em] text-zinc-400">{t.aboutLabel}</p>
             <h2 className="mt-2 text-3xl font-semibold md:text-4xl">
-              Our Story Since 2004
+              {t.aboutHeading}
             </h2>
-            <p className="mt-5 text-zinc-300">
-              Pritika Camera Center has been serving photographers since 2004 in
-              the heart of Kathmandu, Newroad.
-            </p>
-            <p className="mt-4 text-zinc-300">
-              Founded by Ramkrishna Timsina, a man driven by big dreams,
-              ambition, and passion, the journey began not as a businessman but
-              as a photographer. What started as a love for capturing moments
-              evolved into a mission: to help every photographer turn their
-              passion into a profession.
-            </p>
-            <p className="mt-4 text-zinc-300">
-              From a small beginning to becoming one of Nepal&apos;s trusted
-              camera suppliers, Pritika Camera Center has proudly delivered
-              excellence to photographers, videographers, locals, and
-              international visitors alike. Over the years, our services have
-              extended across the country, supporting creative professionals
-              wherever they are.
-            </p>
-            <p className="mt-4 text-zinc-300">
-              We believe every great journey begins with a dream and at Pritika
-              Camera Center, we&apos;re here to help you capture yours.
-            </p>
-            <p className="mt-4 text-zinc-100">
-              Visit us today and take the first step toward your dream
-              profession.
-            </p>
+            <p className="mt-5 text-zinc-300">{t.aboutP1}</p>
+            <p className="mt-4 text-zinc-300">{t.aboutP2}</p>
+            <p className="mt-4 text-zinc-300">{t.aboutP3}</p>
+            <p className="mt-4 text-zinc-300">{t.aboutP4}</p>
+            <p className="mt-4 text-zinc-100">{t.aboutP5}</p>
           </div>
 
           <div className="mt-10 border-y border-white/10 bg-black/20 py-4">
@@ -253,12 +238,12 @@ export default function Home() {
           className="border-y border-white/10 bg-zinc-900/40 px-6 py-16 md:py-20"
         >
           <div className="mx-auto max-w-6xl">
-            <p className="text-xs tracking-[0.3em] text-zinc-400">SERVICES</p>
+            <p className="text-xs tracking-[0.3em] text-zinc-400">{t.servicesLabel}</p>
             <h2 className="mt-2 text-3xl font-semibold md:text-4xl">
-              Click a service to book
+              {t.servicesHeading}
             </h2>
             <p className="mt-3 max-w-2xl text-zinc-300">
-              Choose your service and we will reserve a visit slot at the store.
+              {t.servicesDesc}
             </p>
             <div className="mt-8 grid gap-4 md:grid-cols-2">
               {services.map((service) => (
@@ -272,10 +257,14 @@ export default function Home() {
                       : "border-white/10 bg-white/[0.03] hover:border-white/30"
                   }`}
                 >
-                  <h3 className="font-semibold">{service.title}</h3>
-                  <p className="mt-2 text-sm text-zinc-300">{service.description}</p>
+                  <h3 className="font-semibold">
+                    {serviceLocale[service.title]?.title ?? service.title}
+                  </h3>
+                  <p className="mt-2 text-sm text-zinc-300">
+                    {serviceLocale[service.title]?.description ?? service.description}
+                  </p>
                   <p className="mt-4 text-xs font-semibold tracking-[0.18em] text-orange-300">
-                    BOOK THIS SERVICE
+                    {t.bookServiceCta}
                   </p>
                 </button>
               ))}
@@ -285,12 +274,12 @@ export default function Home() {
 
         <section id="service-booking" className="mx-auto max-w-6xl px-6 py-16 md:py-20">
           <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 md:p-8">
-            <p className="text-xs tracking-[0.3em] text-zinc-400">SERVICE BOOKING</p>
+            <p className="text-xs tracking-[0.3em] text-zinc-400">{t.bookingLabel}</p>
             <h2 className="mt-2 text-3xl font-semibold md:text-4xl">
-              Book your store visit
+              {t.bookingHeading}
             </h2>
             <p className="mt-3 text-sm text-zinc-300">
-              Store hours: Sunday-Friday 10:00-19:00, Saturday 10:00-13:00.
+              {t.storeHoursLine}
             </p>
             <form
               action={`https://formsubmit.co/${contact.email}`}
@@ -304,7 +293,7 @@ export default function Home() {
 
               <div className="md:col-span-2">
                 <label htmlFor="service" className="mb-2 block text-sm text-zinc-300">
-                  Service
+                  {t.fieldService}
                 </label>
                 <select
                   id="service"
@@ -316,7 +305,7 @@ export default function Home() {
                 >
                   {serviceTitles.map((title) => (
                     <option key={title} value={title}>
-                      {title}
+                      {serviceLocale[title]?.title ?? title}
                     </option>
                   ))}
                 </select>
@@ -324,7 +313,7 @@ export default function Home() {
 
               <div>
                 <label htmlFor="booking-name" className="mb-2 block text-sm text-zinc-300">
-                  Full name
+                  {t.fieldFullName}
                 </label>
                 <input
                   id="booking-name"
@@ -340,7 +329,7 @@ export default function Home() {
 
               <div>
                 <label htmlFor="booking-phone" className="mb-2 block text-sm text-zinc-300">
-                  Phone number
+                  {t.fieldPhone}
                 </label>
                 <input
                   id="booking-phone"
@@ -358,7 +347,7 @@ export default function Home() {
 
               <div className="md:col-span-2">
                 <label htmlFor="booking-address" className="mb-2 block text-sm text-zinc-300">
-                  Address
+                  {t.fieldAddress}
                 </label>
                 <input
                   id="booking-address"
@@ -374,7 +363,7 @@ export default function Home() {
 
               <div>
                 <label htmlFor="visit-date" className="mb-2 block text-sm text-zinc-300">
-                  Preferred date
+                  {t.fieldDate}
                 </label>
                 <input
                   id="visit-date"
@@ -387,7 +376,7 @@ export default function Home() {
 
               <div>
                 <label htmlFor="visit-slot" className="mb-2 block text-sm text-zinc-300">
-                  Preferred time slot
+                  {t.fieldSlot}
                 </label>
                 <select
                   id="visit-slot"
@@ -397,7 +386,7 @@ export default function Home() {
                   className="w-full rounded-lg border border-white/15 bg-zinc-950 px-4 py-3 text-sm outline-none ring-orange-500 focus:ring-2"
                 >
                   <option value="" disabled>
-                    Select a time slot
+                    {t.selectSlot}
                   </option>
                   {visitSlots.map((slot) => (
                     <option key={slot} value={slot}>
@@ -412,7 +401,7 @@ export default function Home() {
                   type="submit"
                   className="w-full rounded-full bg-orange-500 px-6 py-3 text-center font-semibold text-zinc-950 transition hover:bg-orange-400"
                 >
-                  Book Service Visit
+                  {t.bookVisitBtn}
                 </button>
               </div>
             </form>
@@ -421,24 +410,21 @@ export default function Home() {
 
         <section id="contact" className="mx-auto max-w-6xl px-6 py-16 md:py-20">
           <div className="rounded-2xl border border-white/10 bg-gradient-to-r from-orange-500/20 to-sky-500/20 p-8 md:p-10">
-            <p className="text-xs tracking-[0.3em] text-zinc-300">CONTACT</p>
+            <p className="text-xs tracking-[0.3em] text-zinc-300">{t.contactLabel}</p>
             <h2 className="mt-2 text-3xl font-semibold md:text-4xl">
-              Visit us at Pako Marg, Kathmandu
+              {t.contactHeading}
             </h2>
             <div className="mt-6 space-y-2 text-zinc-200">
               <p>Phone: {contact.phoneDisplay}</p>
               <p>Email: {contact.email}</p>
-              <p>
-                Location: Above Apple Care Store, Pako Marg, Kathmandu 44600,
-                Nepal
-              </p>
+              <p>{t.contactLocation}</p>
             </div>
             <div className="mt-8 flex flex-col gap-4 sm:flex-row">
               <a
                 href={`tel:${contact.phoneDial}`}
                 className="rounded-full bg-white px-7 py-3 text-center font-semibold text-zinc-950 hover:bg-zinc-200"
               >
-                Call Now
+                {t.callNow}
               </a>
               <a
                 href={`https://wa.me/${contact.whatsapp}`}
@@ -446,7 +432,7 @@ export default function Home() {
                 rel="noreferrer"
                 className="rounded-full border border-white/30 px-7 py-3 text-center font-semibold hover:bg-white/10"
               >
-                WhatsApp Chat
+                {t.whatsappChat}
               </a>
             </div>
           </div>
@@ -456,11 +442,11 @@ export default function Home() {
           <div className="grid gap-6 md:grid-cols-2">
             <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
               <p className="text-xs tracking-[0.3em] text-zinc-400">
-                QUICK MESSAGE
+                {t.quickMessageLabel}
               </p>
-              <h3 className="mt-2 text-2xl font-semibold">Send us an inquiry</h3>
+              <h3 className="mt-2 text-2xl font-semibold">{t.quickMessageHeading}</h3>
               <p className="mt-3 text-sm text-zinc-300">
-                Fill this form and you will receive messages at{" "}
+                {t.quickMessageDesc}{" "}
                 <span className="font-semibold text-zinc-200">{contact.email}</span>.
               </p>
               <form
@@ -485,7 +471,7 @@ export default function Home() {
                   minLength={2}
                   maxLength={60}
                   autoComplete="name"
-                  placeholder="Your name"
+                  placeholder={t.placeholderName}
                   className="w-full rounded-lg border border-white/15 bg-zinc-950 px-4 py-3 text-sm outline-none ring-orange-500 placeholder:text-zinc-500 focus:ring-2"
                 />
                 <input
@@ -497,7 +483,7 @@ export default function Home() {
                   maxLength={20}
                   pattern="[0-9+\\s()-]{7,20}"
                   autoComplete="tel"
-                  placeholder="Phone number"
+                  placeholder={t.placeholderPhone}
                   className="w-full rounded-lg border border-white/15 bg-zinc-950 px-4 py-3 text-sm outline-none ring-orange-500 placeholder:text-zinc-500 focus:ring-2"
                 />
                 <textarea
@@ -507,14 +493,14 @@ export default function Home() {
                   minLength={10}
                   maxLength={600}
                   autoComplete="off"
-                  placeholder="What products are you looking for?"
+                  placeholder={t.placeholderMessage}
                   className="w-full rounded-lg border border-white/15 bg-zinc-950 px-4 py-3 text-sm outline-none ring-orange-500 placeholder:text-zinc-500 focus:ring-2"
                 />
                 <button
                   type="submit"
                   className="w-full rounded-full bg-orange-500 px-6 py-3 text-center font-semibold text-zinc-950 transition hover:bg-orange-400"
                 >
-                  Send Inquiry
+                  {t.sendInquiryBtn}
                 </button>
               </form>
             </div>
@@ -534,7 +520,7 @@ export default function Home() {
                   rel="noreferrer"
                   className="text-sm font-semibold text-orange-300 hover:text-orange-200"
                 >
-                  Open full map directions
+                  {t.mapDirections}
                 </a>
               </div>
             </div>
@@ -545,8 +531,8 @@ export default function Home() {
       <footer className="border-t border-white/10 px-6 py-8">
         <div className="mx-auto flex max-w-6xl flex-col gap-3 text-sm text-zinc-400">
           <p>Copyright {new Date().getFullYear()} Pritika Camera Center</p>
-          <p>Photo and video equipment for creators in Nepal</p>
-          <p>Store Hours: Sunday-Friday 10:00-19:00 | Saturday 10:00-13:00</p>
+          <p>{t.footerTagline}</p>
+          <p>{t.footerHours}</p>
         </div>
       </footer>
     </div>
