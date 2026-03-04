@@ -76,9 +76,10 @@ export default function Home() {
               onChange={(event) => setLanguage(event.target.value as Language)}
               className="rounded-full border border-zinc-300 bg-white px-3 py-1 text-xs font-semibold outline-none ring-[#0071e3] focus:ring-2"
             >
-              <option value="en">EN</option>
-              <option value="ne">NE</option>
-              <option value="hi">HI</option>
+              <option value="en">🇺🇸 EN</option>
+              <option value="ne">🇳🇵 NE</option>
+              <option value="hi">🇮🇳 HI</option>
+              <option value="zh">🇨🇳 ZH</option>
             </select>
             <button
               type="button"
@@ -140,7 +141,7 @@ export default function Home() {
             <p className="mt-4 text-lg text-zinc-500">{t.heroSince}</p>
             <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
               <a
-                href="#products"
+                href="#contact"
                 className="rounded-full bg-[#0071e3] px-8 py-3 text-base font-medium text-white transition hover:bg-[#0066cc]"
               >
                 {t.ctaLearn}
@@ -414,10 +415,12 @@ export default function Home() {
             <h2 className="mt-2 text-3xl font-semibold md:text-4xl">
               {t.contactHeading}
             </h2>
-            <div className="mt-6 space-y-2 text-zinc-200">
-              <p>Phone: {contact.phoneDisplay}</p>
-              <p>Email: {contact.email}</p>
-              <p>{t.contactLocation}</p>
+            <div className="mt-6 space-y-3 text-zinc-100">
+              <p className="text-lg font-semibold md:text-xl">Phone: {contact.phoneDisplay}</p>
+              <p className="text-lg font-semibold md:text-xl">Email: {contact.email}</p>
+              <p className="text-lg font-semibold md:text-xl">
+                {t.contactLocation} (3rd floor)
+              </p>
             </div>
             <div className="mt-8 flex flex-col gap-4 sm:flex-row">
               <a

@@ -1,4 +1,4 @@
-export type Language = "en" | "ne" | "hi";
+export type Language = "en" | "ne" | "hi" | "zh";
 
 export const copy = {
   en: {
@@ -171,6 +171,61 @@ export const copy = {
     footerTagline: "नेपाल के क्रिएटर्स के लिए फोटो और वीडियो उपकरण",
     footerHours: "स्टोर समय: रविवार-शुक्रवार 10:00-19:00 | शनिवार 10:00-13:00",
   },
+  zh: {
+    navProducts: "产品",
+    navServices: "服务",
+    navAbout: "关于我们",
+    heroLocation: "加德满都，尼泊尔",
+    heroTitle: "Pritika Camera Center",
+    heroSubtitle: "专业相机设备，值得信赖的本地支持。",
+    heroSince: "自 2004 年起服务摄影师",
+    ctaLearn: "了解更多",
+    ctaBook: "预约到店",
+    productsLabel: "产品",
+    productsHeading: "精选相机设备",
+    productsDesc: "在 Pritika Camera Center 精选相机、镜头与创作设备。",
+    aboutLabel: "关于我们",
+    aboutHeading: "我们的故事（始于 2004）",
+    aboutP1:
+      "Pritika Camera Center 自 2004 年起，在加德满都 Newroad 为摄影师提供服务。",
+    aboutP2:
+      "创始人 Ramkrishna Timsina 怀揣梦想与热情，以摄影师身份开启这段旅程，并致力于帮助每位摄影爱好者把热爱变成职业。",
+    aboutP3:
+      "从小店起步到成为尼泊尔值得信赖的相机供应商之一，我们持续为摄影师、摄像师、本地与国际客户提供优质服务。",
+    aboutP4:
+      "我们相信每段伟大旅程都始于梦想，而我们愿帮助你记录并实现它。",
+    aboutP5: "欢迎到店，迈出通往梦想职业的第一步。",
+    servicesLabel: "服务",
+    servicesHeading: "选择服务并预约",
+    servicesDesc: "选择所需服务，我们将为您安排到店时间。",
+    bookServiceCta: "预约此服务",
+    bookingLabel: "服务预约",
+    bookingHeading: "预约到店服务",
+    storeHoursLine: "营业时间：周日-周五 10:00-19:00，周六 10:00-13:00。",
+    fieldService: "服务项目",
+    fieldFullName: "姓名",
+    fieldPhone: "电话号码",
+    fieldAddress: "地址",
+    fieldDate: "期望日期",
+    fieldSlot: "期望时间段",
+    selectSlot: "请选择时间段",
+    bookVisitBtn: "提交预约",
+    contactLabel: "联系",
+    contactHeading: "欢迎来到加德满都 Pako Marg",
+    contactLocation: "地址：尼泊尔加德满都 44600，Pako Marg，Apple Care Store 楼上",
+    callNow: "立即拨打",
+    whatsappChat: "WhatsApp 咨询",
+    quickMessageLabel: "快速咨询",
+    quickMessageHeading: "发送咨询信息",
+    quickMessageDesc: "填写此表单，消息将发送至",
+    placeholderName: "您的姓名",
+    placeholderPhone: "电话号码",
+    placeholderMessage: "您想咨询哪些产品？",
+    sendInquiryBtn: "发送咨询",
+    mapDirections: "打开完整地图路线",
+    footerTagline: "为尼泊尔创作者提供摄影与视频设备",
+    footerHours: "营业时间：周日-周五 10:00-19:00 | 周六 10:00-13:00",
+  },
 } as const;
 
 export const productTranslations: Record<
@@ -203,6 +258,15 @@ export const productTranslations: Record<
     "dji-rs3-pro": { name: "DJI RS 3 Pro", category: "गिम्बल", status: "स्टॉक में" },
     "rode-wireless-go-ii": { name: "रोड वायरलेस GO II", category: "ऑडियो", status: "स्टॉक में" },
     "godox-ad600": { name: "गोडॉक्स AD600 Pro", category: "लाइटिंग", status: "स्टॉक में" },
+  },
+  zh: {
+    "sony-a7rv": { name: "索尼 Alpha a7R V", category: "微单", status: "有现货" },
+    "canon-r5": { name: "佳能 EOS R5", category: "微单", status: "有现货" },
+    "nikon-z9": { name: "尼康 Z9", category: "微单", status: "可预订" },
+    "sony-24-70": { name: "索尼 FE 24-70mm f/2.8 GM II", category: "镜头", status: "有现货" },
+    "dji-rs3-pro": { name: "DJI RS 3 Pro", category: "稳定器", status: "有现货" },
+    "rode-wireless-go-ii": { name: "Rode Wireless GO II", category: "音频", status: "有现货" },
+    "godox-ad600": { name: "Godox AD600 Pro", category: "灯光", status: "有现货" },
   },
 };
 
@@ -260,6 +324,24 @@ export const serviceTranslations: Record<Language, Record<string, { title: strin
     "Camera Cleaning": {
       title: "कैमरा क्लीनिंग",
       description: "साफ और बेहतर फोटो के लिए प्रोफेशनल सेंसर क्लीनिंग और फंगस रिमूवल।",
+    },
+  },
+  zh: {
+    "Repair & Servicing": {
+      title: "维修与保养",
+      description: "为 DSLR 与微单相机提供专业检测与维修，并使用原装配件。",
+    },
+    "Accessories & Spare Parts": {
+      title: "配件与备件",
+      description: "电池、充电器、存储卡及替换配件库存充足。",
+    },
+    "Studio Setup": {
+      title: "影棚搭建",
+      description: "提供完整影棚灯光与音频环境的咨询与安装服务。",
+    },
+    "Camera Cleaning": {
+      title: "相机清洁",
+      description: "专业传感器清洁与霉菌处理，让画面更清晰。",
     },
   },
 };
