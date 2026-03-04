@@ -54,27 +54,30 @@ export default function Home() {
 
       <main>
         <section className="relative h-[70vh] min-h-[430px] max-h-[860px] overflow-hidden">
-          <nav className="absolute left-1/2 top-4 z-20 w-[92%] max-w-3xl -translate-x-1/2 rounded-2xl border border-white/20 bg-black/35 p-2 backdrop-blur">
-            <div className="grid grid-cols-3 gap-2">
-              <a
-                href="#products"
-                className="rounded-xl border border-white/15 px-3 py-3 text-center text-sm font-semibold text-zinc-100 transition hover:bg-white/10"
-              >
-                <span className="mr-2">🛍️</span>Products
-              </a>
-              <a
-                href="#services"
-                className="rounded-xl border border-white/15 px-3 py-3 text-center text-sm font-semibold text-zinc-100 transition hover:bg-white/10"
-              >
-                <span className="mr-2">🛠️</span>Services
-              </a>
-              <a
-                href="#about"
-                className="rounded-xl border border-white/15 px-3 py-3 text-center text-sm font-semibold text-zinc-100 transition hover:bg-white/10"
-              >
-                <span className="mr-2">🏆</span>About Us
-              </a>
-            </div>
+          <nav className="absolute left-1/2 top-4 z-20 w-[92%] max-w-sm -translate-x-1/2 rounded-2xl border border-white/20 bg-black/35 p-2 backdrop-blur">
+            <label htmlFor="section-dropdown" className="sr-only">
+              Jump to section
+            </label>
+            <select
+              id="section-dropdown"
+              defaultValue=""
+              onChange={(event) => {
+                const sectionId = event.target.value;
+                if (!sectionId) return;
+                document.getElementById(sectionId)?.scrollIntoView({
+                  behavior: "smooth",
+                  block: "start",
+                });
+              }}
+              className="w-full rounded-xl border border-white/15 bg-zinc-900/80 px-4 py-3 text-sm font-semibold text-zinc-100 outline-none ring-orange-500 focus:ring-2"
+            >
+              <option value="" disabled>
+                Jump to section
+              </option>
+              <option value="products">Products</option>
+              <option value="services">Services</option>
+              <option value="about">About Us</option>
+            </select>
           </nav>
 
           <video
