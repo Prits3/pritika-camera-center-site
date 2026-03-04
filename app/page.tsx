@@ -72,7 +72,7 @@ export default function Home() {
               className="w-full rounded-xl border border-white/15 bg-zinc-900/80 px-4 py-3 text-sm font-semibold text-zinc-100 outline-none ring-orange-500 focus:ring-2"
             >
               <option value="" disabled>
-                Jump to section
+                Navigate
               </option>
               <option value="products">Products</option>
               <option value="services">Services</option>
