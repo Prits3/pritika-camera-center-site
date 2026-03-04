@@ -5,6 +5,11 @@ import Image from "next/image";
 import { products, services } from "@/data/products";
 
 const liveProductFrames = products.map((product) => product.image);
+const aboutFrames = [
+  "/images/about/kpa.png",
+  "/images/about/pcc.png",
+  "/images/about/award.png",
+];
 const serviceTitles = services.map((service) => service.title);
 
 const visitSlots = [
@@ -49,6 +54,29 @@ export default function Home() {
 
       <main>
         <section className="relative h-[70vh] min-h-[430px] max-h-[860px] overflow-hidden">
+          <nav className="absolute left-1/2 top-4 z-20 w-[92%] max-w-3xl -translate-x-1/2 rounded-2xl border border-white/20 bg-black/35 p-2 backdrop-blur">
+            <div className="grid grid-cols-3 gap-2">
+              <a
+                href="#products"
+                className="rounded-xl border border-white/15 px-3 py-3 text-center text-sm font-semibold text-zinc-100 transition hover:bg-white/10"
+              >
+                <span className="mr-2">🛍️</span>Products
+              </a>
+              <a
+                href="#services"
+                className="rounded-xl border border-white/15 px-3 py-3 text-center text-sm font-semibold text-zinc-100 transition hover:bg-white/10"
+              >
+                <span className="mr-2">🛠️</span>Services
+              </a>
+              <a
+                href="#about"
+                className="rounded-xl border border-white/15 px-3 py-3 text-center text-sm font-semibold text-zinc-100 transition hover:bg-white/10"
+              >
+                <span className="mr-2">🏆</span>About Us
+              </a>
+            </div>
+          </nav>
+
           <video
             autoPlay
             loop
@@ -162,6 +190,58 @@ export default function Home() {
                 </p>
               </article>
             ))}
+          </div>
+        </section>
+
+        <section id="about" className="border-y border-white/10 bg-zinc-900/50 py-16 md:py-20">
+          <div className="mx-auto max-w-6xl px-6">
+            <p className="text-xs tracking-[0.3em] text-zinc-400">ABOUT US</p>
+            <h2 className="mt-2 text-3xl font-semibold md:text-4xl">
+              Our Story Since 2004
+            </h2>
+            <p className="mt-5 text-zinc-300">
+              Pritika Camera Center has been serving photographers since 2004 in
+              the heart of Kathmandu, Newroad.
+            </p>
+            <p className="mt-4 text-zinc-300">
+              Founded by Ramkrishna Timsina, a man driven by big dreams,
+              ambition, and passion, the journey began not as a businessman but
+              as a photographer. What started as a love for capturing moments
+              evolved into a mission: to help every photographer turn their
+              passion into a profession.
+            </p>
+            <p className="mt-4 text-zinc-300">
+              From a small beginning to becoming one of Nepal&apos;s trusted
+              camera suppliers, Pritika Camera Center has proudly delivered
+              excellence to photographers, videographers, locals, and
+              international visitors alike. Over the years, our services have
+              extended across the country, supporting creative professionals
+              wherever they are.
+            </p>
+            <p className="mt-4 text-zinc-300">
+              We believe every great journey begins with a dream and at Pritika
+              Camera Center, we&apos;re here to help you capture yours.
+            </p>
+            <p className="mt-4 text-zinc-100">
+              Visit us today and take the first step toward your dream
+              profession.
+            </p>
+          </div>
+
+          <div className="mt-10 border-y border-white/10 bg-black/20 py-4">
+            <div className="hero-rail-track">
+              {[...aboutFrames, ...aboutFrames, ...aboutFrames].map((frame, index) => (
+                <div key={`${frame}-${index}`} className="hero-rail-item">
+                  <Image
+                    src={frame}
+                    alt="Pritika Camera Center memories and achievements"
+                    width={360}
+                    height={220}
+                    className="h-28 w-44 rounded-xl border border-white/10 object-cover md:h-36 md:w-60"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
